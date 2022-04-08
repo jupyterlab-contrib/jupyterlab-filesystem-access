@@ -1,6 +1,6 @@
 # jupyterlab-filesystem
 
-[![Github Actions Status](https://github.com/jupyterlab-contrib/jupyterlab-filesystem/workflows/Build/badge.svg)](https://github.com/jupyterlab-contrib/jupyterlab-filesystem/actions/workflows/build.yml)
+[![Github Actions Status](https://github.com/jtpio/jupyterlab-filesystem/workflows/Build/badge.svg)](https://github.com/jtpio/jupyterlab-filesystem/actions/workflows/build.yml)
 
 Browse local files using the Filesystem API.
 
