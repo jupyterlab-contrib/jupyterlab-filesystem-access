@@ -8,7 +8,7 @@ https://user-images.githubusercontent.com/591645/160241594-6b363b06-2103-445a-ac
 
 ## Requirements
 
-* JupyterLab >= 3.0
+- JupyterLab >= 3.0
 
 ## Install
 
@@ -25,7 +25,6 @@ To remove the extension, execute:
 ```bash
 pip uninstall jupyterlab_filesystem
 ```
-
 
 ## Contributing
 
