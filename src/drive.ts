@@ -145,8 +145,15 @@ export class FileSystemDrive implements Contents.IDrive {
 
     const handle = await root.getFileHandle(localPath);
     const writable = await handle.createWritable({});
+
+    const format = options?.format;
     const content = options?.content;
-    await writable.write(content);
+    if (format === 'json') {
+      const data = JSON.stringify(content, null, 2);
+      await writable.write(data);
+    } else {
+      await writable.write(content);
+    }
     await writable.close();
     return this.get(localPath);
   }
