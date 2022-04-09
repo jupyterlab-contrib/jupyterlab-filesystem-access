@@ -2,9 +2,21 @@
 
 [![Github Actions Status](https://github.com/jtpio/jupyterlab-filesystem/workflows/Build/badge.svg)](https://github.com/jtpio/jupyterlab-filesystem/actions/workflows/build.yml)
 
-Browse local files using the Filesystem API.
+Browse local files using the non-standard Web Browser Filesystem API.
+
+⚠️ **This extension is compatible with Chromium-based browsers only (for now)** ⚠️
+
+![image](https://user-images.githubusercontent.com/591645/162558622-3cc357a6-eb7c-4147-860d-1c8973eeee29.png)
+
+More info on MDN: https://developer.mozilla.org/en-US/docs/Web/API/Window/showOpenFilePicker
 
 https://user-images.githubusercontent.com/591645/160241594-6b363b06-2103-445a-ac68-9ecc6104e0c4.mp4
+
+## Motivation
+
+The main motivation for this extension is to give access to local files in JupyterLite: https://github.com/jupyterlite/jupyterlite/issues/403
+
+It can also be used on hosted and ephemeral JupyterLab deployments such as [Binder](https://mybinder.org).
 
 ## Requirements
 
