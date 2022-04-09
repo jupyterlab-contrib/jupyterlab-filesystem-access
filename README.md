@@ -2,7 +2,7 @@
 
 [![Github Actions Status](https://github.com/jtpio/jupyterlab-filesystem/workflows/Build/badge.svg)](https://github.com/jtpio/jupyterlab-filesystem/actions/workflows/build.yml)
 
-Browse local files using the non-standard Web Browser Filesystem API.
+Browse local files using the non-standard Web Browser File System Access API.
 
 ⚠️ **This extension is compatible with Chromium-based browsers only (for now)** ⚠️
 
