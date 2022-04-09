@@ -149,7 +149,7 @@ export class FileSystemDrive implements Contents.IDrive {
     const format = options?.format;
     const content = options?.content;
     if (format === 'json') {
-      const data = JSON.stringify(content);
+      const data = JSON.stringify(content, null, 2);
       await writable.write(data);
     } else {
       await writable.write(content);
