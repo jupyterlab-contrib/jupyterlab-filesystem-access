@@ -27,7 +27,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
   ) => {
     if (!window.showDirectoryPicker) {
       // bail if the browser does not support the File System API
-      console.warn('The File System API is not supported in this browser.');
+      console.warn(
+        'The File System Access API is not supported in this browser.'
+      );
       return;
     }
 

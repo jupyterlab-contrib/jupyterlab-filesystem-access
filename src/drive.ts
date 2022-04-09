@@ -42,7 +42,17 @@ export class FileSystemDrive implements Contents.IDrive {
     const root = this._rootHandle;
 
     if (!root) {
-      throw new Error('Files not available');
+      return {
+        name: '',
+        path: '',
+        created: new Date().toISOString(),
+        last_modified: new Date().toISOString(),
+        format: 'json',
+        content: null,
+        writable: true,
+        type: 'directory',
+        mimetype: 'application/json'
+      };
     }
 
     if (localPath) {
