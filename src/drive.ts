@@ -42,7 +42,17 @@ export class FileSystemDrive implements Contents.IDrive {
     const root = this._rootHandle;
 
     if (!root) {
-      throw new Error('Files not available');
+      return {
+        name: '',
+        path: '',
+        created: new Date().toISOString(),
+        last_modified: new Date().toISOString(),
+        format: 'json',
+        content: null,
+        writable: true,
+        type: 'directory',
+        mimetype: 'application/json'
+      };
     }
 
     if (localPath) {
@@ -123,11 +133,22 @@ export class FileSystemDrive implements Contents.IDrive {
     throw new Error('Method not implemented.');
   }
 
-  save(
+  async save(
     localPath: string,
     options?: Partial<Contents.IModel>
   ): Promise<Contents.IModel> {
-    throw new Error('Method not implemented.');
+    const root = this._rootHandle;
+
+    if (!root) {
+      throw new Error('No root file handle');
+    }
+
+    const handle = await root.getFileHandle(localPath);
+    const writable = await handle.createWritable({});
+    const content = options?.content;
+    await writable.write(content);
+    await writable.close();
+    return this.get(localPath);
   }
 
   copy(localPath: string, toLocalDir: string): Promise<Contents.IModel> {
