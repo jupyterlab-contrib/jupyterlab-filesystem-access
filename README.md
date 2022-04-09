@@ -1,6 +1,6 @@
-# jupyterlab-filesystem
+# jupyterlab-filesystem-access
 
-[![Github Actions Status](https://github.com/jtpio/jupyterlab-filesystem/workflows/Build/badge.svg)](https://github.com/jtpio/jupyterlab-filesystem/actions/workflows/build.yml)
+[![Github Actions Status](https://github.com/jtpio/jupyterlab-filesystem-access/workflows/Build/badge.svg)](https://github.com/jtpio/jupyterlab-filesystem-access/actions/workflows/build.yml)
 
 Browse local files using the non-standard Web Browser File System Access API.
 
@@ -27,7 +27,7 @@ It can also be used on hosted and ephemeral JupyterLab deployments such as [Bind
 To install the extension, execute:
 
 ```bash
-pip install jupyterlab_filesystem
+pip install jupyterlab_filesystem_access
 ```
 
 ## Uninstall
@@ -35,7 +35,7 @@ pip install jupyterlab_filesystem
 To remove the extension, execute:
 
 ```bash
-pip uninstall jupyterlab_filesystem
+pip uninstall jupyterlab_filesystem_access
 ```
 
 ## Contributing
@@ -50,7 +50,7 @@ The `jlpm` command is JupyterLab's pinned version of
 
 ```bash
 # Clone the repo to your local environment
-# Change directory to the jupyterlab_filesystem directory
+# Change directory to the jupyterlab_filesystem_access directory
 # Install package in development mode
 pip install -e .
 # Link your development version of the extension with JupyterLab
@@ -79,12 +79,12 @@ jupyter lab build --minimize=False
 ### Development uninstall
 
 ```bash
-pip uninstall jupyterlab_filesystem
+pip uninstall jupyterlab_filesystem_access
 ```
 
 In development mode, you will also need to remove the symlink created by `jupyter labextension develop`
 command. To find its location, you can run `jupyter labextension list` to figure out where the `labextensions`
-folder is located. Then you can remove the symlink named `jupyterlab-filesystem` within that folder.
+folder is located. Then you can remove the symlink named `jupyterlab-filesystem-access` within that folder.
 
 ### Packaging the extension
 
