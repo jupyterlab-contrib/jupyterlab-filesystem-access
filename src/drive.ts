@@ -123,11 +123,22 @@ export class FileSystemDrive implements Contents.IDrive {
     throw new Error('Method not implemented.');
   }
 
-  save(
+  async save(
     localPath: string,
     options?: Partial<Contents.IModel>
   ): Promise<Contents.IModel> {
-    throw new Error('Method not implemented.');
+    const root = this._rootHandle;
+
+    if (!root) {
+      throw new Error('No root file handle');
+    }
+
+    const handle = await root.getFileHandle(localPath);
+    const writable = await handle.createWritable({});
+    const content = options?.content;
+    await writable.write(content);
+    await writable.close();
+    return this.get(localPath);
   }
 
   copy(localPath: string, toLocalDir: string): Promise<Contents.IModel> {
