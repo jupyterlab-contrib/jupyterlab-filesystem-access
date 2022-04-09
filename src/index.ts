@@ -14,10 +14,10 @@ import { listIcon, folderIcon } from '@jupyterlab/ui-components';
 import { FileSystemDrive } from './drive';
 
 /**
- * Initialization data for the jupyterlab-filesystem extension.
+ * Initialization data for the jupyterlab-filesystem-access extension.
  */
 const plugin: JupyterFrontEndPlugin<void> = {
-  id: 'jupyterlab-filesystem:plugin',
+  id: 'jupyterlab-filesystem-access:plugin',
   requires: [IFileBrowserFactory, ITranslator],
   autoStart: true,
   activate: (
@@ -36,7 +36,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
     const { serviceManager } = app;
     const { createFileBrowser } = browser;
 
-    const trans = translator.load('jupyterlab-filesystem');
+    const trans = translator.load('jupyterlab-filesystem-access');
     const drive = new FileSystemDrive();
 
     serviceManager.contents.addDrive(drive);

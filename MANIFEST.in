@@ -7,7 +7,7 @@ include install.json
 include ts*.json
 include yarn.lock
 
-graft jupyterlab_filesystem/labextension
+graft jupyterlab_filesystem_access/labextension
 
 # Javascript files
 graft src

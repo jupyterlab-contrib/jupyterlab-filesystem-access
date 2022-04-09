@@ -1,5 +1,5 @@
 {
-  "name": "jupyterlab-filesystem",
+  "name": "jupyterlab-filesystem-access",
   "version": "0.1.0",
   "description": "Mount local files using the Filesystem API",
   "keywords": [
@@ -7,9 +7,9 @@
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "homepage": "https://github.com/jtpio/jupyterlab-filesystem",
+  "homepage": "https://github.com/jtpio/jupyterlab-filesystem-access",
   "bugs": {
-    "url": "https://github.com/jtpio/jupyterlab-filesystem/issues"
+    "url": "https://github.com/jtpio/jupyterlab-filesystem-access/issues"
   },
   "license": "BSD-3-Clause",
   "author": {
@@ -25,7 +25,7 @@
   "style": "style/index.css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jtpio/jupyterlab-filesystem.git"
+    "url": "https://github.com/jtpio/jupyterlab-filesystem-access.git"
   },
   "scripts": {
     "build": "jlpm build:lib && jlpm build:labextension:dev",
@@ -36,7 +36,7 @@
     "clean": "jlpm clean:lib",
     "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
     "clean:lintcache": "rimraf .eslintcache .stylelintcache",
-    "clean:labextension": "rimraf jupyterlab_filesystem/labextension",
+    "clean:labextension": "rimraf jupyterlab_filesystem_access/labextension",
     "clean:all": "jlpm clean:lib && jlpm clean:labextension && jlpm clean:lintcache",
     "eslint": "jlpm eslint:check --fix",
     "eslint:check": "eslint . --cache --ext .ts,.tsx",
@@ -88,7 +88,7 @@
   },
   "jupyterlab": {
     "extension": true,
-    "outputDir": "jupyterlab_filesystem/labextension"
+    "outputDir": "jupyterlab_filesystem_access/labextension"
   },
   "jupyter-releaser": {
     "hooks": {
