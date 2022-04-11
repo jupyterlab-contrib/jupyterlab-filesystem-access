@@ -177,7 +177,13 @@ export class FileSystemDrive implements Contents.IDrive {
       throw new Error('No root file handle');
     }
 
-    const handle = await root.getFileHandle(path);
+    let parentHandle = root;
+    // If saving a file that is not under root, we need the right directory handle
+    for (const subPath of path.split('/').slice(0, -1)) {
+      parentHandle = await parentHandle.getDirectoryHandle(subPath);
+    }
+
+    const handle = await parentHandle.getFileHandle(PathExt.basename(path));
     const writable = await handle.createWritable({});
 
     const format = options?.format;
