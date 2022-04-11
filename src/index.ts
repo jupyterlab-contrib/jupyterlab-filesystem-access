@@ -42,7 +42,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
     serviceManager.contents.addDrive(drive);
 
     const widget = createFileBrowser('jp-filesystem-browser', {
-      driveName: drive.name
+      driveName: drive.name,
+      // We don't want to restore old state, we don't have a drive handle ready
+      restore: false
     });
     widget.title.caption = trans.__('Local File System');
     widget.title.icon = listIcon;
