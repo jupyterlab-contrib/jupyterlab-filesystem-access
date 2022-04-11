@@ -151,7 +151,7 @@ export class FileSystemDrive implements Contents.IDrive {
     }
   }
 
-  getDownloadUrl(localPath: string): Promise<string> {
+  getDownloadUrl(path: string): Promise<string> {
     throw new Error('Method not implemented.');
   }
 
@@ -159,16 +159,16 @@ export class FileSystemDrive implements Contents.IDrive {
     throw new Error('Method not implemented.');
   }
 
-  delete(localPath: string): Promise<void> {
+  delete(path: string): Promise<void> {
     throw new Error('Method not implemented.');
   }
 
-  rename(oldLocalPath: string, newLocalPath: string): Promise<Contents.IModel> {
+  rename(oldPath: string, newPath: string): Promise<Contents.IModel> {
     throw new Error('Method not implemented.');
   }
 
   async save(
-    localPath: string,
+    path: string,
     options?: Partial<Contents.IModel>
   ): Promise<Contents.IModel> {
     const root = this._rootHandle;
@@ -177,7 +177,7 @@ export class FileSystemDrive implements Contents.IDrive {
       throw new Error('No root file handle');
     }
 
-    const handle = await root.getFileHandle(localPath);
+    const handle = await root.getFileHandle(path);
     const writable = await handle.createWritable({});
 
     const format = options?.format;
@@ -189,15 +189,15 @@ export class FileSystemDrive implements Contents.IDrive {
       await writable.write(content);
     }
     await writable.close();
-    return this.get(localPath);
+    return this.get(path);
   }
 
-  copy(localPath: string, toLocalDir: string): Promise<Contents.IModel> {
+  copy(path: string, toLocalDir: string): Promise<Contents.IModel> {
     throw new Error('Method not implemented.');
   }
 
   async createCheckpoint(
-    localPath: string
+    path: string
   ): Promise<Contents.ICheckpointModel> {
     return {
       id: 'test',
@@ -206,7 +206,7 @@ export class FileSystemDrive implements Contents.IDrive {
   }
 
   async listCheckpoints(
-    localPath: string
+    path: string
   ): Promise<Contents.ICheckpointModel[]> {
     return [
       {
@@ -216,11 +216,11 @@ export class FileSystemDrive implements Contents.IDrive {
     ];
   }
 
-  restoreCheckpoint(localPath: string, checkpointID: string): Promise<void> {
+  restoreCheckpoint(path: string, checkpointID: string): Promise<void> {
     return Promise.resolve(void 0);
   }
 
-  deleteCheckpoint(localPath: string, checkpointID: string): Promise<void> {
+  deleteCheckpoint(path: string, checkpointID: string): Promise<void> {
     return Promise.resolve(void 0);
   }
 
