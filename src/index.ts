@@ -52,10 +52,13 @@ const plugin: JupyterFrontEndPlugin<void> = {
     const openDirectoryButton = new ToolbarButton({
       icon: folderIcon,
       onClick: async () => {
-        const fileHandle = await window.showDirectoryPicker();
+        const directoryHandle = await window.showDirectoryPicker();
 
-        if (fileHandle) {
-          drive.rootHandle = fileHandle;
+        if (directoryHandle) {
+          drive.rootHandle = directoryHandle;
+
+          // Go to root directory
+          widget.model.cd('/');
         }
       },
       tooltip: trans.__('Open a new folder')
