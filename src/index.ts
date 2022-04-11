@@ -42,7 +42,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
     serviceManager.contents.addDrive(drive);
 
     const widget = createFileBrowser('jp-filesystem-browser', {
-      driveName: drive.name
+      driveName: drive.name,
+      // We don't want to restore old state, we don't have a drive handle ready
+      restore: false
     });
     widget.title.caption = trans.__('Local File System');
     widget.title.icon = listIcon;
@@ -50,10 +52,13 @@ const plugin: JupyterFrontEndPlugin<void> = {
     const openDirectoryButton = new ToolbarButton({
       icon: folderIcon,
       onClick: async () => {
-        const fileHandle = await window.showDirectoryPicker();
+        const directoryHandle = await window.showDirectoryPicker();
 
-        if (fileHandle) {
-          drive.rootHandle = fileHandle;
+        if (directoryHandle) {
+          drive.rootHandle = directoryHandle;
+
+          // Go to root directory
+          widget.model.cd('/');
         }
       },
       tooltip: trans.__('Open a new folder')
