@@ -4,6 +4,17 @@ import { PathExt } from '@jupyterlab/coreutils';
 
 import { ISignal, Signal } from '@lumino/signaling';
 
+function arrayBufferToBase64(buffer: ArrayBuffer): string {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+
+  for (let i = 0; i < bytes.byteLength; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+
+  return window.btoa(binary);
+}
+
 async function toArray<T>(
   asyncIterator: AsyncIterableIterator<T>
 ): Promise<T[]> {
@@ -83,36 +94,15 @@ export class FileSystemDrive implements Contents.IDrive {
     }
 
     if (localHandle.kind === 'file') {
-      const file = await localHandle.getFile();
-
-      return {
-        name: file.name,
-        path: PathExt.join(parentPath, localPath),
-        created: new Date(file.lastModified).toISOString(),
-        last_modified: new Date(file.lastModified).toISOString(),
-        format: 'text',
-        content: await file.text(),
-        writable: true,
-        type: 'file',
-        mimetype: 'text/plain'
-      };
+      return this.getFileModel(localHandle, parentPath, true);
     } else {
       const content: Contents.IModel[] = [];
 
       for await (const value of localHandle.values()) {
         if (value.kind === 'file') {
-          const file = await value.getFile();
-          content.push({
-            name: file.name,
-            path: PathExt.join(parentPath, localPath, file.name),
-            created: new Date(file.lastModified).toISOString(),
-            last_modified: new Date(file.lastModified).toISOString(),
-            format: 'text',
-            content: await file.text(),
-            writable: true,
-            type: 'file',
-            mimetype: 'text/plain'
-          });
+          content.push(
+            await this.getFileModel(value, PathExt.join(parentPath, localPath))
+          );
         } else {
           content.push({
             name: value.name,
@@ -303,6 +293,47 @@ export class FileSystemDrive implements Contents.IDrive {
     const matches = content.filter(element => element.name === localPath);
 
     return Boolean(matches.length);
+  }
+
+  private async getFileModel(
+    handle: FileSystemFileHandle,
+    path: string,
+    content?: boolean
+  ): Promise<Contents.IModel> {
+    const file = await handle.getFile();
+    let format: Contents.FileFormat;
+    let fileContent: any = null;
+
+    // We assume here image, audio and video mimetypes are all and only binary files we'll encounter
+    if (
+      file.type &&
+      file.type.split('/') &&
+      ['image', 'audio', 'video'].includes(file.type.split('/')[0])
+    ) {
+      format = 'base64';
+    } else {
+      format = 'text';
+    }
+
+    if (content) {
+      if (format === 'base64') {
+        fileContent = arrayBufferToBase64(await file.arrayBuffer());
+      } else {
+        fileContent = await file.text();
+      }
+    }
+
+    return {
+      name: file.name,
+      path: PathExt.join(path, file.name),
+      created: new Date(file.lastModified).toISOString(),
+      last_modified: new Date(file.lastModified).toISOString(),
+      format,
+      content: fileContent,
+      writable: true,
+      type: 'file',
+      mimetype: file.type
+    };
   }
 
   private _isDisposed = false;
