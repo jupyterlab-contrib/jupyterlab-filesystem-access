@@ -163,6 +163,7 @@ export class FileSystemDrive implements Contents.IDrive {
     let localPath = PathExt.basename(path);
     const name = localPath;
 
+    let data: Contents.IModel;
     if (type === 'directory') {
       let i = 1;
       while (await this.hasHandle(parentHandle, localPath)) {
@@ -171,7 +172,7 @@ export class FileSystemDrive implements Contents.IDrive {
 
       await parentHandle.getDirectoryHandle(localPath, { create: true });
 
-      return this.get(PathExt.join(parentPath, localPath));
+      data = await this.get(PathExt.join(parentPath, localPath));
     } else {
       let i = 1;
       while (await this.hasHandle(parentHandle, `${localPath}.${ext}`)) {
@@ -182,12 +183,28 @@ export class FileSystemDrive implements Contents.IDrive {
 
       await parentHandle.getFileHandle(filename, { create: true });
 
-      return this.get(PathExt.join(parentPath, filename));
+      data = await this.get(PathExt.join(parentPath, filename));
     }
+
+    this._fileChanged.emit({
+      type: 'new',
+      oldValue: null,
+      newValue: data
+    });
+
+    return data;
   }
 
-  delete(path: string): Promise<void> {
-    throw new Error('Method not implemented.');
+  async delete(path: string): Promise<void> {
+    const parentHandle = await this.getParentHandle(path);
+
+    await parentHandle.removeEntry(PathExt.basename(path), { recursive: true });
+
+    this._fileChanged.emit({
+      type: 'delete',
+      oldValue: { path: path },
+      newValue: null
+    });
   }
 
   rename(oldPath: string, newPath: string): Promise<Contents.IModel> {
