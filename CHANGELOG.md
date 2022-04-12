@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.3.0
+
+([Full Changelog](https://github.com/jtpio/jupyterlab-filesystem-access/compare/v0.2.0...8e56ca1c3ee5e81f725cf8b57198c5b6d301c935))
+
+### Merged PRs
+
+- Implement newUntitled [#14](https://github.com/jtpio/jupyterlab-filesystem-access/pull/14) ([@martinRenou](https://github.com/martinRenou))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jtpio/jupyterlab-filesystem-access/graphs/contributors?from=2022-04-11&to=2022-04-12&type=c))
+
+[@martinRenou](https://github.com/search?q=repo%3Ajtpio%2Fjupyterlab-filesystem-access+involves%3AmartinRenou+updated%3A2022-04-11..2022-04-12&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.2.0
 
 ([Full Changelog](https://github.com/jtpio/jupyterlab-filesystem-access/compare/v0.1.1...b776fa853b8e6a3a6a3990278a9987f56f6e77a5))
@@ -15,8 +31,6 @@
 ([GitHub contributors page for this release](https://github.com/jtpio/jupyterlab-filesystem-access/graphs/contributors?from=2022-04-09&to=2022-04-11&type=c))
 
 [@jtpio](https://github.com/search?q=repo%3Ajtpio%2Fjupyterlab-filesystem-access+involves%3Ajtpio+updated%3A2022-04-09..2022-04-11&type=Issues) | [@martinRenou](https://github.com/search?q=repo%3Ajtpio%2Fjupyterlab-filesystem-access+involves%3AmartinRenou+updated%3A2022-04-09..2022-04-11&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.1.1
 
