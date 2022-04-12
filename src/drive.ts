@@ -129,7 +129,7 @@ export class FileSystemDrive implements Contents.IDrive {
       }
 
       return {
-        name: PathExt.basename(parentPath),
+        name: localPath,
         path: PathExt.join(parentPath, localPath),
         last_modified: '',
         created: '',
