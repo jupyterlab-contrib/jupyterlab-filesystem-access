@@ -69,23 +69,15 @@ export class FileSystemDrive implements Contents.IDrive {
       };
     }
 
-    let parentHandle = root;
-    // If requesting a file/directory that is not under root, we need the right directory handle
-    for (const subPath of path.split('/').slice(0, -1)) {
-      parentHandle = await parentHandle.getDirectoryHandle(subPath);
-    }
+    const parentHandle = await this.getParentHandle(path);
 
     const parentPath = PathExt.dirname(path);
     const localPath = PathExt.basename(path);
 
     let localHandle: FileSystemDirectoryHandle | FileSystemFileHandle;
 
-    const currentContent = await toArray(parentHandle.values());
-
     if (localPath) {
-      localHandle = currentContent.filter(
-        element => element.name === localPath
-      )[0];
+      localHandle = await this.getHandle(parentHandle, localPath);
     } else {
       localHandle = parentHandle;
     }
@@ -137,7 +129,7 @@ export class FileSystemDrive implements Contents.IDrive {
       }
 
       return {
-        name: PathExt.basename(parentPath),
+        name: localPath,
         path: PathExt.join(parentPath, localPath),
         last_modified: '',
         created: '',
@@ -155,8 +147,43 @@ export class FileSystemDrive implements Contents.IDrive {
     throw new Error('Method not implemented.');
   }
 
-  newUntitled(options?: Contents.ICreateOptions): Promise<Contents.IModel> {
-    throw new Error('Method not implemented.');
+  async newUntitled(
+    options?: Contents.ICreateOptions
+  ): Promise<Contents.IModel> {
+    const type = options?.type || 'directory';
+    const path = PathExt.join(
+      options?.path || '',
+      type === 'directory' ? 'Untitled Folder' : 'untitled'
+    );
+    const ext = options?.ext || 'txt';
+
+    const parentHandle = await this.getParentHandle(path);
+
+    const parentPath = PathExt.dirname(path);
+    let localPath = PathExt.basename(path);
+    const name = localPath;
+
+    if (type === 'directory') {
+      let i = 1;
+      while (await this.hasHandle(parentHandle, localPath)) {
+        localPath = `${name} ${i++}`;
+      }
+
+      await parentHandle.getDirectoryHandle(localPath, { create: true });
+
+      return this.get(PathExt.join(parentPath, localPath));
+    } else {
+      let i = 1;
+      while (await this.hasHandle(parentHandle, `${localPath}.${ext}`)) {
+        localPath = `${name}${i++}`;
+      }
+
+      const filename = `${localPath}.${ext}`;
+
+      await parentHandle.getFileHandle(filename, { create: true });
+
+      return this.get(PathExt.join(parentPath, filename));
+    }
   }
 
   delete(path: string): Promise<void> {
@@ -171,17 +198,7 @@ export class FileSystemDrive implements Contents.IDrive {
     path: string,
     options?: Partial<Contents.IModel>
   ): Promise<Contents.IModel> {
-    const root = this._rootHandle;
-
-    if (!root) {
-      throw new Error('No root file handle');
-    }
-
-    let parentHandle = root;
-    // If saving a file that is not under root, we need the right directory handle
-    for (const subPath of path.split('/').slice(0, -1)) {
-      parentHandle = await parentHandle.getDirectoryHandle(subPath);
-    }
+    const parentHandle = await this.getParentHandle(path);
 
     const handle = await parentHandle.getFileHandle(PathExt.basename(path));
     const writable = await handle.createWritable({});
@@ -195,6 +212,7 @@ export class FileSystemDrive implements Contents.IDrive {
       await writable.write(content);
     }
     await writable.close();
+
     return this.get(path);
   }
 
@@ -224,6 +242,50 @@ export class FileSystemDrive implements Contents.IDrive {
 
   deleteCheckpoint(path: string, checkpointID: string): Promise<void> {
     return Promise.resolve(void 0);
+  }
+
+  private async getParentHandle(
+    path: string
+  ): Promise<FileSystemDirectoryHandle> {
+    const root = this._rootHandle;
+
+    if (!root) {
+      throw new Error('No root file handle');
+    }
+
+    let parentHandle = root;
+    // If saving a file that is not under root, we need the right directory handle
+    for (const subPath of path.split('/').slice(0, -1)) {
+      parentHandle = await parentHandle.getDirectoryHandle(subPath);
+    }
+
+    return parentHandle;
+  }
+
+  private async getHandle(
+    parentHandle: FileSystemDirectoryHandle,
+    localPath: string
+  ): Promise<FileSystemDirectoryHandle | FileSystemFileHandle> {
+    const content = await toArray(parentHandle.values());
+
+    const matches = content.filter(element => element.name === localPath);
+
+    if (matches.length) {
+      return matches[0];
+    }
+
+    throw new Error(`${localPath} does not exist.`);
+  }
+
+  private async hasHandle(
+    parentHandle: FileSystemDirectoryHandle,
+    localPath: string
+  ): Promise<boolean> {
+    const content = await toArray(parentHandle.values());
+
+    const matches = content.filter(element => element.name === localPath);
+
+    return Boolean(matches.length);
   }
 
   private _isDisposed = false;
