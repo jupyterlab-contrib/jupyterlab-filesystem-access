@@ -1,6 +1,6 @@
 {
   "name": "jupyterlab-filesystem-access",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Mount local files using the Filesystem API",
   "keywords": [
     "jupyter",
