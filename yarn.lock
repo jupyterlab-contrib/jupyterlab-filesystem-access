@@ -464,6 +464,19 @@
     ajv "^6.12.3"
     json5 "^2.1.1"
 
+"@jupyterlab/settingregistry@^3.3.3":
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/@jupyterlab/settingregistry/-/settingregistry-3.3.3.tgz#6ec7221481e54eb7a1f5b9275b8981dd4ebc10bc"
+  integrity sha512-1lEgrp3Zeatmv9IiSlS5QR8r2NhLtvRPb4mGO4MTEsqNeZaxcTv8belmnYPE+iuPqVKW2C5Fb1ek7/HeZQYHKA==
+  dependencies:
+    "@jupyterlab/statedb" "^3.3.3"
+    "@lumino/commands" "^1.12.0"
+    "@lumino/coreutils" "^1.5.3"
+    "@lumino/disposable" "^1.4.3"
+    "@lumino/signaling" "^1.4.3"
+    ajv "^6.12.3"
+    json5 "^2.1.1"
+
 "@jupyterlab/shared-models@^3.3.2":
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/@jupyterlab/shared-models/-/shared-models-3.3.2.tgz#a6ca48947161895e7abbb1707ecdc1702da9a3e7"
@@ -480,6 +493,17 @@
   version "3.3.2"
   resolved "https://registry.yarnpkg.com/@jupyterlab/statedb/-/statedb-3.3.2.tgz#944baa96680e4819a630797a55075e24a63a27be"
   integrity sha512-IXjlV+RsaS091lfkyOaZOoho9QQLS/74OG4ei4kP6MXghIGTFYTsXvleUh9tynOcTXrhdQcHRNYsoUzTmRMW0A==
+  dependencies:
+    "@lumino/commands" "^1.12.0"
+    "@lumino/coreutils" "^1.5.3"
+    "@lumino/disposable" "^1.4.3"
+    "@lumino/properties" "^1.2.3"
+    "@lumino/signaling" "^1.4.3"
+
+"@jupyterlab/statedb@^3.3.3":
+  version "3.3.3"
+  resolved "https://registry.yarnpkg.com/@jupyterlab/statedb/-/statedb-3.3.3.tgz#7c7177609bc5d86663406191967b7866845b93ba"
+  integrity sha512-ElKGUCipWmFLURSDJIfyCliaJLA0Nmlq4H/bWg0aSqtg75ByqvXJ0AYwFkg1RP291AMh9f22NMmPF1jScTzJbQ==
   dependencies:
     "@lumino/commands" "^1.12.0"
     "@lumino/coreutils" "^1.5.3"

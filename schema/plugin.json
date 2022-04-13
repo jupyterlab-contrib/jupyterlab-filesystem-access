@@ -1,0 +1,67 @@
+{
+  "jupyter.lab.shortcuts": [],
+  "title": "File Browser Access",
+  "description": "File Browser Access settings.",
+  "type": "object",
+  "properties": {},
+  "jupyter.lab.menus": {
+    "context": [
+      {
+        "command": "filebrowser:rename",
+        "selector": ".jp-DirListing-item[data-isdir]",
+        "rank": 5,
+        "disabled": true
+      },
+      {
+        "command": "filebrowser:rename",
+        "selector": ".jp-FileBrowser:not([data-is-filesystem-access]) .jp-DirListing-item[data-isdir]",
+        "rank": 5
+      },
+      {
+        "command": "filebrowser:cut",
+        "selector": ".jp-DirListing-item[data-isdir]",
+        "rank": 7,
+        "disabled": true
+      },
+      {
+        "command": "filebrowser:cut",
+        "selector": ".jp-FileBrowser:not([data-is-filesystem-access]) .jp-DirListing-item[data-isdir]",
+        "rank": 7
+      },
+      {
+        "command": "filebrowser:copy",
+        "selector": ".jp-DirListing-item[data-isdir=\"false\"]",
+        "rank": 8,
+        "disabled": true
+      },
+      {
+        "command": "filebrowser:copy",
+        "selector": ".jp-FileBrowser:not([data-is-filesystem-access]) .jp-DirListing-item[data-isdir=\"false\"]",
+        "rank": 8
+      },
+      {
+        "command": "filebrowser:paste",
+        "selector": ".jp-DirListing-content",
+        "rank": 8.5,
+        "disabled": true
+      },
+      {
+        "command": "filebrowser:paste",
+        "selector": ".jp-FileBrowser:not([data-is-filesystem-access]) .jp-DirListing-content",
+        "rank": 8.5
+      },
+      {
+        "command": "filebrowser:duplicate",
+        "selector": ".jp-DirListing-item[data-isdir=\"false\"]",
+        "rank": 9,
+        "disabled": true
+      },
+      {
+        "command": "filebrowser:duplicate",
+        "selector": ".jp-FileBrowser:not([data-is-filesystem-access]) .jp-DirListing-item[data-isdir=\"false\"]",
+        "rank": 9
+      }
+    ]
+  },
+  "additionalProperties": false
+}
