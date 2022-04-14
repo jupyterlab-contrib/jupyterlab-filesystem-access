@@ -7,9 +7,9 @@
     "jupyterlab",
     "jupyterlab-extension"
   ],
-  "homepage": "https://github.com/jtpio/jupyterlab-filesystem-access",
+  "homepage": "https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access",
   "bugs": {
-    "url": "https://github.com/jtpio/jupyterlab-filesystem-access/issues"
+    "url": "https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/issues"
   },
   "license": "BSD-3-Clause",
   "author": {
@@ -25,7 +25,7 @@
   "style": "style/index.css",
   "repository": {
     "type": "git",
-    "url": "https://github.com/jtpio/jupyterlab-filesystem-access.git"
+    "url": "https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access.git"
   },
   "scripts": {
     "build": "jlpm build:lib && jlpm build:labextension:dev",
