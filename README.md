@@ -27,7 +27,7 @@ It can also be used on hosted and ephemeral JupyterLab deployments such as [Bind
 To install the extension, execute:
 
 ```bash
-pip install jupyterlab_filesystem_access
+pip install jupyterlab-filesystem-access
 ```
 
 ## Uninstall
