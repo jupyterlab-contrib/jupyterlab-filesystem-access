@@ -1,6 +1,6 @@
 # jupyterlab-filesystem-access
 
-[![Github Actions Status](https://github.com/jtpio/jupyterlab-filesystem-access/workflows/Build/badge.svg)](https://github.com/jtpio/jupyterlab-filesystem-access/actions/workflows/build.yml)
+[![Github Actions Status](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/workflows/Build/badge.svg)](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/actions/workflows/build.yml)
 
 Browse local files using the non-standard Web Browser File System Access API.
 
