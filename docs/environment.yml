@@ -1,0 +1,14 @@
+name: jupyterlab-filesystem-docs
+
+channels:
+  - conda-forge
+
+dependencies:
+  - yarn
+  - jupyterlab
+  - jupyter-packaging
+  - pydata-sphinx-theme
+
+  - pip:
+    - ..
+    - jupyterlite-sphinx

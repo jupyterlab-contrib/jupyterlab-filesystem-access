@@ -9,6 +9,12 @@ include yarn.lock
 
 graft jupyterlab_filesystem_access/labextension
 
+# Docs
+graft docs/source
+include docs/Makefile
+include docs/make.bat
+include docs/environment.yml
+
 # Javascript files
 graft src
 graft schema
