@@ -1,5 +1,5 @@
-Access your local storage from JupyterLab
-=========================================
+Access your local file system from JupyterLab
+=============================================
 
 Browse local files using the non-standard Web Browser File System Access API.
 
