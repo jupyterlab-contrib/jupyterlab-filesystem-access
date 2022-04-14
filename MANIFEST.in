@@ -11,6 +11,7 @@ graft jupyterlab_filesystem_access/labextension
 
 # Javascript files
 graft src
+graft schema
 graft style
 prune **/node_modules
 prune lib
