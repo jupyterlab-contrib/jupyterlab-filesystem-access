@@ -1,6 +1,13 @@
 # jupyterlab-filesystem-access
 
-[![Github Actions Status](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/workflows/Build/badge.svg)](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/actions/workflows/build.yml)
+[![ci-badge]][ci] [![lite-badge]][lite] [![docs-badge]][docs]
+
+[ci-badge]: https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/workflows/Build/badge.svg
+[ci]: https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/actions?query=branch%3Amain
+[lite-badge]: https://jupyterlite.rtfd.io/en/latest/_static/badge.svg
+[lite]: https://jupyterlab-filesystem-access.readthedocs.io/en/latest/lite/lab
+[docs-badge]: https://readthedocs.org/projects/jupyterlab-filesystem-access/badge/?version=latest
+[docs]: https://jupyterlab-filesystem-access.readthedocs.io/en/latest/?badge=latest
 
 Browse local files using the non-standard Web Browser File System Access API.
 
