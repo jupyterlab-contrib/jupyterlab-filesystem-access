@@ -54,16 +54,16 @@
     "watch:labextension": "jupyter labextension watch ."
   },
   "dependencies": {
-    "@jupyterlab/application": "^3.3.0",
-    "@jupyterlab/apputils": "^3.3.0",
-    "@jupyterlab/filebrowser": "^3.3.0",
-    "@jupyterlab/services": "^6.3.0",
-    "@jupyterlab/settingregistry": "^3.3.3",
-    "@jupyterlab/translation": "^3.3.0",
-    "@jupyterlab/ui-components": "^3.3.0"
+    "@jupyterlab/application": "^3.4.0",
+    "@jupyterlab/apputils": "^3.4.0",
+    "@jupyterlab/filebrowser": "^3.4.0",
+    "@jupyterlab/services": "^6.4.0",
+    "@jupyterlab/settingregistry": "^3.4.0",
+    "@jupyterlab/translation": "^3.4.0",
+    "@jupyterlab/ui-components": "^3.4.0"
   },
   "devDependencies": {
-    "@jupyterlab/builder": "^3.3.0",
+    "@jupyterlab/builder": "^3.4.0",
     "@types/wicg-file-system-access": "^2020.9.5",
     "@typescript-eslint/eslint-plugin": "^5.16.0",
     "@typescript-eslint/parser": "^5.16.0",
@@ -96,7 +96,7 @@
   "jupyter-releaser": {
     "hooks": {
       "before-build-npm": [
-        "python -m pip install jupyterlab~=3.3",
+        "python -m pip install jupyterlab~=3.4",
         "jlpm"
       ],
       "before-build-python": [

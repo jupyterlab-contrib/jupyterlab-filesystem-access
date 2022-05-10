@@ -5,9 +5,9 @@ import {
 
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 
-import { ToolbarButton } from '@jupyterlab/apputils';
+import { createToolbarFactory, ToolbarButton, IToolbarWidgetRegistry, setToolbar } from '@jupyterlab/apputils';
 
-import { IFileBrowserFactory } from '@jupyterlab/filebrowser';
+import { FileBrowser, IFileBrowserFactory } from '@jupyterlab/filebrowser';
 
 import { ITranslator } from '@jupyterlab/translation';
 
@@ -20,13 +20,14 @@ import { FileSystemDrive } from './drive';
  */
 const plugin: JupyterFrontEndPlugin<void> = {
   id: 'jupyterlab-filesystem-access:plugin',
-  requires: [IFileBrowserFactory, ITranslator],
+  requires: [IFileBrowserFactory, ITranslator, IToolbarWidgetRegistry],
   optional: [ISettingRegistry],
   autoStart: true,
   activate: (
     app: JupyterFrontEnd,
     browser: IFileBrowserFactory,
     translator: ITranslator,
+    toolbarRegistry: IToolbarWidgetRegistry,
     settingRegistry: ISettingRegistry | null
   ) => {
     if (!window.showDirectoryPicker) {
@@ -74,6 +75,23 @@ const plugin: JupyterFrontEndPlugin<void> = {
       },
       tooltip: trans.__('Open a new folder')
     });
+
+    toolbarRegistry.registerFactory(
+      'FileBrowser', // Factory name
+      'OpenNewFolder',
+      (browser: FileBrowser) => openDirectoryButton
+    );
+
+    setToolbar(
+      widget,
+      createToolbarFactory(
+        toolbarRegistry,
+        settingRegistry!,
+        'FileBrowser',
+        '@jupyterlab/filebrowser-extension:widget',
+        translator
+      )
+    );
 
     widget.toolbar.insertItem(0, 'open-directory', openDirectoryButton);
 
