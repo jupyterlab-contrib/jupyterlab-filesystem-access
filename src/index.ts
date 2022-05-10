@@ -1,3 +1,5 @@
+import { Widget } from '@lumino/widgets';
+
 import {
   JupyterFrontEnd,
   JupyterFrontEndPlugin
@@ -5,13 +7,18 @@ import {
 
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 
-import { createToolbarFactory, ToolbarButton, IToolbarWidgetRegistry, setToolbar } from '@jupyterlab/apputils';
+import { ToolbarButton, setToolbar } from '@jupyterlab/apputils';
 
-import { FileBrowser, IFileBrowserFactory } from '@jupyterlab/filebrowser';
+import { IFileBrowserFactory } from '@jupyterlab/filebrowser';
 
 import { ITranslator } from '@jupyterlab/translation';
 
-import { listIcon, folderIcon } from '@jupyterlab/ui-components';
+import {
+  listIcon,
+  folderIcon,
+  newFolderIcon,
+  refreshIcon
+} from '@jupyterlab/ui-components';
 
 import { FileSystemDrive } from './drive';
 
@@ -20,14 +27,13 @@ import { FileSystemDrive } from './drive';
  */
 const plugin: JupyterFrontEndPlugin<void> = {
   id: 'jupyterlab-filesystem-access:plugin',
-  requires: [IFileBrowserFactory, ITranslator, IToolbarWidgetRegistry],
+  requires: [IFileBrowserFactory, ITranslator],
   optional: [ISettingRegistry],
   autoStart: true,
   activate: (
     app: JupyterFrontEnd,
     browser: IFileBrowserFactory,
     translator: ITranslator,
-    toolbarRegistry: IToolbarWidgetRegistry,
     settingRegistry: ISettingRegistry | null
   ) => {
     if (!window.showDirectoryPicker) {
@@ -61,7 +67,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
     // Adding a data attribute
     widget.node.setAttribute('data-is-filesystem-access', '');
 
-    const openDirectoryButton = new ToolbarButton({
+    const openFolderButton = new ToolbarButton({
       icon: folderIcon,
       onClick: async () => {
         const directoryHandle = await window.showDirectoryPicker();
@@ -75,25 +81,39 @@ const plugin: JupyterFrontEndPlugin<void> = {
       },
       tooltip: trans.__('Open a new folder')
     });
+    openFolderButton.addClass('jp-FilesystemOpenDirectory');
 
-    toolbarRegistry.registerFactory(
-      'FileBrowser', // Factory name
-      'OpenNewFolder',
-      (browser: FileBrowser) => openDirectoryButton
-    );
-
-    setToolbar(
-      widget,
-      createToolbarFactory(
-        toolbarRegistry,
-        settingRegistry!,
-        'FileBrowser',
-        '@jupyterlab/filebrowser-extension:widget',
-        translator
-      )
-    );
-
-    widget.toolbar.insertItem(0, 'open-directory', openDirectoryButton);
+    setToolbar(widget, (browser: Widget) => [
+      {
+        name: 'open-folder',
+        widget: openFolderButton
+      },
+      {
+        name: 'new-folder',
+        widget: new ToolbarButton({
+          icon: newFolderIcon,
+          onClick: () => {
+            widget.createNewDirectory();
+          },
+          tooltip: trans.__('New Folder')
+        })
+      },
+      {
+        name: 'refresher',
+        widget: new ToolbarButton({
+          icon: refreshIcon,
+          onClick: () => {
+            widget.model.refresh().catch(reason => {
+              console.error(
+                'Failed to refresh file browser in open dialog.',
+                reason
+              );
+            });
+          },
+          tooltip: trans.__('Refresh File List')
+        })
+      }
+    ]);
 
     app.shell.add(widget, 'left');
   }
