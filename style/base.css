@@ -3,3 +3,12 @@
 
     https://jupyterlab.readthedocs.io/en/stable/developer/css.html
 */
+
+.jp-FilesystemOpenDirectory .jp-ToolbarButtonComponent {
+  width: 72px !important;
+  background: var(--jp-brand-color1);
+}
+
+.jp-FilesystemOpenDirectory .jp-ToolbarButtonComponent:hover {
+  background: var(--jp-brand-color1);
+}
