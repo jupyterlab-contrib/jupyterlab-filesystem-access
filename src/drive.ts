@@ -76,7 +76,7 @@ export class FileSystemDrive implements Contents.IDrive {
         mimetype: '',
         content: null,
         writable: true,
-        type: 'directory',
+        type: 'directory'
       };
     }
 
@@ -113,7 +113,7 @@ export class FileSystemDrive implements Contents.IDrive {
             mimetype: '',
             content: null,
             writable: true,
-            type: 'directory',
+            type: 'directory'
           });
         }
       }
@@ -209,7 +209,7 @@ export class FileSystemDrive implements Contents.IDrive {
       format: toCopy.format,
       mimetype: toCopy.mimetype,
       type: toCopy.type,
-      writable: toCopy.writable,
+      writable: toCopy.writable
     };
 
     await this.save(newPath, copy);
@@ -226,12 +226,16 @@ export class FileSystemDrive implements Contents.IDrive {
     const parentHandle = await this.getParentHandle(path);
 
     if (options?.type === 'directory') {
-      await parentHandle.getDirectoryHandle(PathExt.basename(path), { create: true });
+      await parentHandle.getDirectoryHandle(PathExt.basename(path), {
+        create: true
+      });
 
       return this.get(path);
     }
 
-    const handle = await parentHandle.getFileHandle(PathExt.basename(path), { create: true });
+    const handle = await parentHandle.getFileHandle(PathExt.basename(path), {
+      create: true
+    });
     const writable = await handle.createWritable({});
 
     const format = options?.format;
@@ -257,7 +261,10 @@ export class FileSystemDrive implements Contents.IDrive {
       const ext = PathExt.extname(toCopy.name);
 
       if (ext) {
-        newName = `${newName.slice(0, newName.length - ext.length)} (Copy)${ext}`;
+        newName = `${newName.slice(
+          0,
+          newName.length - ext.length
+        )} (Copy)${ext}`;
       } else {
         newName = `${newName} (Copy)`;
       }
@@ -272,7 +279,7 @@ export class FileSystemDrive implements Contents.IDrive {
       format: toCopy.format,
       mimetype: toCopy.mimetype,
       type: toCopy.type,
-      writable: toCopy.writable,
+      writable: toCopy.writable
     };
 
     await this.save(newPath, copy);
