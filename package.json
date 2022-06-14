@@ -90,8 +90,7 @@
   },
   "jupyterlab": {
     "extension": true,
-    "outputDir": "jupyterlab_filesystem_access/labextension",
-    "schemaDir": "schema"
+    "outputDir": "jupyterlab_filesystem_access/labextension"
   },
   "jupyter-releaser": {
     "hooks": {

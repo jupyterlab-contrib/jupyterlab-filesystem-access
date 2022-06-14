@@ -72,11 +72,11 @@ export class FileSystemDrive implements Contents.IDrive {
         path: '',
         created: new Date().toISOString(),
         last_modified: new Date().toISOString(),
-        format: 'json',
+        format: null,
+        mimetype: '',
         content: null,
         writable: true,
         type: 'directory',
-        mimetype: 'application/json'
       };
     }
 
@@ -109,11 +109,11 @@ export class FileSystemDrive implements Contents.IDrive {
             path: PathExt.join(parentPath, localPath, value.name),
             created: '',
             last_modified: '',
-            format: 'json',
+            format: null,
+            mimetype: '',
             content: null,
             writable: true,
             type: 'directory',
-            mimetype: 'application/json'
           });
         }
       }
@@ -123,8 +123,8 @@ export class FileSystemDrive implements Contents.IDrive {
         path: PathExt.join(parentPath, localPath),
         last_modified: '',
         created: '',
-        format: 'json',
-        mimetype: 'application/json',
+        format: null,
+        mimetype: '',
         content,
         size: undefined,
         writable: true,
@@ -197,8 +197,26 @@ export class FileSystemDrive implements Contents.IDrive {
     });
   }
 
-  rename(oldPath: string, newPath: string): Promise<Contents.IModel> {
-    throw new Error('Method not implemented.');
+  async rename(oldPath: string, newPath: string): Promise<Contents.IModel> {
+    // Best effort, we are lacking proper APIs for renaming
+    const toCopy = await this.get(oldPath);
+    const newName = PathExt.basename(newPath);
+
+    const copy: Partial<Contents.IModel> = {
+      name: newName,
+      path: newPath,
+      content: toCopy.content,
+      format: toCopy.format,
+      mimetype: toCopy.mimetype,
+      type: toCopy.type,
+      writable: toCopy.writable,
+    };
+
+    await this.save(newPath, copy);
+
+    await this.delete(oldPath);
+
+    return this.get(newPath);
   }
 
   async save(
@@ -207,7 +225,13 @@ export class FileSystemDrive implements Contents.IDrive {
   ): Promise<Contents.IModel> {
     const parentHandle = await this.getParentHandle(path);
 
-    const handle = await parentHandle.getFileHandle(PathExt.basename(path));
+    if (options?.type === 'directory') {
+      await parentHandle.getDirectoryHandle(PathExt.basename(path), { create: true });
+
+      return this.get(path);
+    }
+
+    const handle = await parentHandle.getFileHandle(PathExt.basename(path), { create: true });
     const writable = await handle.createWritable({});
 
     const format = options?.format;
@@ -223,8 +247,37 @@ export class FileSystemDrive implements Contents.IDrive {
     return this.get(path);
   }
 
-  copy(path: string, toLocalDir: string): Promise<Contents.IModel> {
-    throw new Error('Method not implemented.');
+  async copy(path: string, toLocalDir: string): Promise<Contents.IModel> {
+    // Best effort, we are lacking proper APIs for copying
+    const toCopy = await this.get(path);
+    const parentPath = PathExt.dirname(path);
+
+    let newName = toCopy.name;
+    if (parentPath === toLocalDir) {
+      const ext = PathExt.extname(toCopy.name);
+
+      if (ext) {
+        newName = `${newName.slice(0, newName.length - ext.length)} (Copy)${ext}`;
+      } else {
+        newName = `${newName} (Copy)`;
+      }
+    }
+
+    const newPath = PathExt.join(toLocalDir, newName);
+
+    const copy: Partial<Contents.IModel> = {
+      name: newName,
+      path: newPath,
+      content: toCopy.content,
+      format: toCopy.format,
+      mimetype: toCopy.mimetype,
+      type: toCopy.type,
+      writable: toCopy.writable,
+    };
+
+    await this.save(newPath, copy);
+
+    return this.get(newPath);
   }
 
   async createCheckpoint(path: string): Promise<Contents.ICheckpointModel> {
