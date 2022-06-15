@@ -4,6 +4,9 @@ import { PathExt } from '@jupyterlab/coreutils';
 
 import { ISignal, Signal } from '@lumino/signaling';
 
+export const DRIVE_NAME = 'FileSystem';
+const DRIVE_PREFIX = `${DRIVE_NAME}:`;
+
 function arrayBufferToBase64(buffer: ArrayBuffer): string {
   let binary = '';
   const bytes = new Uint8Array(buffer);
@@ -41,7 +44,7 @@ export class FileSystemDrive implements Contents.IDrive {
   }
 
   get name(): string {
-    return 'FileSystem';
+    return DRIVE_NAME;
   }
 
   get serverSettings(): ServerConnection.ISettings {
@@ -64,6 +67,8 @@ export class FileSystemDrive implements Contents.IDrive {
     path: string,
     options?: Contents.IFetchOptions
   ): Promise<Contents.IModel> {
+    path = this.cleanPath(path);
+
     const root = this._rootHandle;
 
     if (!root) {
@@ -72,11 +77,11 @@ export class FileSystemDrive implements Contents.IDrive {
         path: '',
         created: new Date().toISOString(),
         last_modified: new Date().toISOString(),
-        format: 'json',
+        format: null,
+        mimetype: '',
         content: null,
         writable: true,
-        type: 'directory',
-        mimetype: 'application/json'
+        type: 'directory'
       };
     }
 
@@ -109,11 +114,11 @@ export class FileSystemDrive implements Contents.IDrive {
             path: PathExt.join(parentPath, localPath, value.name),
             created: '',
             last_modified: '',
-            format: 'json',
+            format: null,
+            mimetype: '',
             content: null,
             writable: true,
-            type: 'directory',
-            mimetype: 'application/json'
+            type: 'directory'
           });
         }
       }
@@ -123,8 +128,8 @@ export class FileSystemDrive implements Contents.IDrive {
         path: PathExt.join(parentPath, localPath),
         last_modified: '',
         created: '',
-        format: 'json',
-        mimetype: 'application/json',
+        format: null,
+        mimetype: '',
         content,
         size: undefined,
         writable: true,
@@ -140,16 +145,20 @@ export class FileSystemDrive implements Contents.IDrive {
   async newUntitled(
     options?: Contents.ICreateOptions
   ): Promise<Contents.IModel> {
+    let parentPath = '';
+    if (options && options.path) {
+      parentPath = this.cleanPath(options.path);
+    }
+
     const type = options?.type || 'directory';
     const path = PathExt.join(
-      options?.path || '',
+      parentPath,
       type === 'directory' ? 'Untitled Folder' : 'untitled'
     );
     const ext = options?.ext || 'txt';
 
     const parentHandle = await this.getParentHandle(path);
 
-    const parentPath = PathExt.dirname(path);
     let localPath = PathExt.basename(path);
     const name = localPath;
 
@@ -186,6 +195,8 @@ export class FileSystemDrive implements Contents.IDrive {
   }
 
   async delete(path: string): Promise<void> {
+    path = this.cleanPath(path);
+
     const parentHandle = await this.getParentHandle(path);
 
     await parentHandle.removeEntry(PathExt.basename(path), { recursive: true });
@@ -197,17 +208,37 @@ export class FileSystemDrive implements Contents.IDrive {
     });
   }
 
-  rename(oldPath: string, newPath: string): Promise<Contents.IModel> {
-    throw new Error('Method not implemented.');
+  async rename(oldPath: string, newPath: string): Promise<Contents.IModel> {
+    // Best effort, we are lacking proper APIs for renaming
+    oldPath = this.cleanPath(oldPath);
+    newPath = this.cleanPath(newPath);
+
+    await this.doCopy(oldPath, newPath);
+
+    await this.delete(oldPath);
+
+    return this.get(newPath);
   }
 
   async save(
     path: string,
     options?: Partial<Contents.IModel>
   ): Promise<Contents.IModel> {
+    path = this.cleanPath(path);
+
     const parentHandle = await this.getParentHandle(path);
 
-    const handle = await parentHandle.getFileHandle(PathExt.basename(path));
+    if (options?.type === 'directory') {
+      await parentHandle.getDirectoryHandle(PathExt.basename(path), {
+        create: true
+      });
+
+      return this.get(path);
+    }
+
+    const handle = await parentHandle.getFileHandle(PathExt.basename(path), {
+      create: true
+    });
     const writable = await handle.createWritable({});
 
     const format = options?.format;
@@ -223,8 +254,32 @@ export class FileSystemDrive implements Contents.IDrive {
     return this.get(path);
   }
 
-  copy(path: string, toLocalDir: string): Promise<Contents.IModel> {
-    throw new Error('Method not implemented.');
+  async copy(path: string, toLocalDir: string): Promise<Contents.IModel> {
+    // Best effort, we are lacking proper APIs for copying
+    path = this.cleanPath(path);
+
+    const toCopy = await this.get(path);
+    const parentPath = PathExt.dirname(path);
+
+    let newName = toCopy.name;
+    if (parentPath === toLocalDir) {
+      const ext = PathExt.extname(toCopy.name);
+
+      if (ext) {
+        newName = `${newName.slice(
+          0,
+          newName.length - ext.length
+        )} (Copy)${ext}`;
+      } else {
+        newName = `${newName} (Copy)`;
+      }
+    }
+
+    const newPath = PathExt.join(toLocalDir, newName);
+
+    await this.doCopy(path, newPath);
+
+    return this.get(newPath);
   }
 
   async createCheckpoint(path: string): Promise<Contents.ICheckpointModel> {
@@ -261,7 +316,6 @@ export class FileSystemDrive implements Contents.IDrive {
     }
 
     let parentHandle = root;
-    // If saving a file that is not under root, we need the right directory handle
     for (const subPath of path.split('/').slice(0, -1)) {
       parentHandle = await parentHandle.getDirectoryHandle(subPath);
     }
@@ -334,6 +388,55 @@ export class FileSystemDrive implements Contents.IDrive {
       type: 'file',
       mimetype: file.type
     };
+  }
+
+  private async doCopy(oldPath: string, newPath: string): Promise<void> {
+    // Best effort, we are lacking proper APIs for copying
+    const oldParentHandle = await this.getParentHandle(oldPath);
+
+    const oldLocalPath = PathExt.basename(oldPath);
+
+    let oldHandle: FileSystemDirectoryHandle | FileSystemFileHandle;
+
+    if (oldLocalPath) {
+      oldHandle = await this.getHandle(oldParentHandle, oldLocalPath);
+    } else {
+      oldHandle = oldParentHandle;
+    }
+
+    const newParentHandle = await this.getParentHandle(newPath);
+
+    const newLocalPath = PathExt.basename(newPath);
+
+    if (oldHandle.kind === 'directory') {
+      // If it's a directory, create directory, then doCopy for the directory content
+      await newParentHandle.getDirectoryHandle(newLocalPath, { create: true });
+
+      for await (const content of oldHandle.values()) {
+        await this.doCopy(
+          PathExt.join(oldPath, content.name),
+          PathExt.join(newPath, content.name)
+        );
+      }
+    } else {
+      // If it's a file, copy the file content
+      const newFileHandle = await newParentHandle.getFileHandle(newLocalPath, {
+        create: true
+      });
+
+      const writable = await newFileHandle.createWritable({});
+      const file = await oldHandle.getFile();
+      const data = await file.arrayBuffer();
+      writable.write(data);
+      await writable.close();
+    }
+  }
+
+  private cleanPath(path: string): string {
+    if (path.includes(DRIVE_PREFIX)) {
+      return path.replace(DRIVE_PREFIX, '');
+    }
+    return path;
   }
 
   private _isDisposed = false;

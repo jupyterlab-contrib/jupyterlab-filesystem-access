@@ -17,7 +17,6 @@ include docs/environment.yml
 
 # Javascript files
 graft src
-graft schema
 graft style
 prune **/node_modules
 prune lib
