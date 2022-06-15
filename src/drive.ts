@@ -199,20 +199,7 @@ export class FileSystemDrive implements Contents.IDrive {
 
   async rename(oldPath: string, newPath: string): Promise<Contents.IModel> {
     // Best effort, we are lacking proper APIs for renaming
-    const toCopy = await this.get(oldPath);
-    const newName = PathExt.basename(newPath);
-
-    const copy: Partial<Contents.IModel> = {
-      name: newName,
-      path: newPath,
-      content: toCopy.content,
-      format: toCopy.format,
-      mimetype: toCopy.mimetype,
-      type: toCopy.type,
-      writable: toCopy.writable
-    };
-
-    await this.save(newPath, copy);
+    await this.doCopy(oldPath, newPath);
 
     await this.delete(oldPath);
 
@@ -272,17 +259,7 @@ export class FileSystemDrive implements Contents.IDrive {
 
     const newPath = PathExt.join(toLocalDir, newName);
 
-    const copy: Partial<Contents.IModel> = {
-      name: newName,
-      path: newPath,
-      content: toCopy.content,
-      format: toCopy.format,
-      mimetype: toCopy.mimetype,
-      type: toCopy.type,
-      writable: toCopy.writable
-    };
-
-    await this.save(newPath, copy);
+    await this.doCopy(path, newPath);
 
     return this.get(newPath);
   }
@@ -321,7 +298,6 @@ export class FileSystemDrive implements Contents.IDrive {
     }
 
     let parentHandle = root;
-    // If saving a file that is not under root, we need the right directory handle
     for (const subPath of path.split('/').slice(0, -1)) {
       parentHandle = await parentHandle.getDirectoryHandle(subPath);
     }
@@ -394,6 +370,48 @@ export class FileSystemDrive implements Contents.IDrive {
       type: 'file',
       mimetype: file.type
     };
+  }
+
+  private async doCopy(oldPath: string, newPath: string): Promise<void> {
+    // Best effort, we are lacking proper APIs for copying
+    const oldParentHandle = await this.getParentHandle(oldPath);
+
+    const oldLocalPath = PathExt.basename(oldPath);
+
+    let oldHandle: FileSystemDirectoryHandle | FileSystemFileHandle;
+
+    if (oldLocalPath) {
+      oldHandle = await this.getHandle(oldParentHandle, oldLocalPath);
+    } else {
+      oldHandle = oldParentHandle;
+    }
+
+    const newParentHandle = await this.getParentHandle(newPath);
+
+    const newLocalPath = PathExt.basename(newPath);
+
+    if (oldHandle.kind === 'directory') {
+      // If it's a directory, create directory, then doCopy for the directory content
+      await newParentHandle.getDirectoryHandle(newLocalPath, { create: true });
+
+      for await (const content of oldHandle.values()) {
+        await this.doCopy(
+          PathExt.join(oldPath, content.name),
+          PathExt.join(newPath, content.name)
+        );
+      }
+    } else {
+      // If it's a file, copy the file content
+      const newFileHandle = await newParentHandle.getFileHandle(newLocalPath, {
+        create: true
+      });
+
+      const writable = await newFileHandle.createWritable({});
+      const file = await oldHandle.getFile();
+      const data = await file.arrayBuffer();
+      writable.write(data);
+      await writable.close();
+    }
   }
 
   private _isDisposed = false;
