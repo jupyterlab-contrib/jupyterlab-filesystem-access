@@ -57,9 +57,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
     widget.title.caption = trans.__('Local File System');
     widget.title.icon = listIcon;
 
-    // Adding a data attribute
-    widget.node.setAttribute('data-is-filesystem-access', '');
-
     const openDirectoryButton = new ToolbarButton({
       icon: folderIcon,
       onClick: async () => {
