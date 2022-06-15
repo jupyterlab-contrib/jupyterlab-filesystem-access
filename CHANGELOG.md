@@ -2,6 +2,22 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.5.0
+
+([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/compare/v0.4.0...bc5c2068f6b6a12511a1f46f53178b5ba1e9b158))
+
+### Enhancements made
+
+- Implement rename and copy [#34](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/34) ([@martinRenou](https://github.com/martinRenou))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/graphs/contributors?from=2022-04-15&to=2022-06-15&type=c))
+
+[@fcollonval](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Afcollonval+updated%3A2022-04-15..2022-06-15&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Ajtpio+updated%3A2022-04-15..2022-06-15&type=Issues) | [@martinRenou](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3AmartinRenou+updated%3A2022-04-15..2022-06-15&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.4.0
 
 ([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/compare/v0.3.0...57ecfc93de1c9b2ae470e05c883a69b10b023fef))
@@ -27,8 +43,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/graphs/contributors?from=2022-04-12&to=2022-04-15&type=c))
 
 [@jtpio](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Ajtpio+updated%3A2022-04-12..2022-04-15&type=Issues) | [@martinRenou](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3AmartinRenou+updated%3A2022-04-12..2022-04-15&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.3.0
 
