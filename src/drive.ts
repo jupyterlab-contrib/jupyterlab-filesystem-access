@@ -4,6 +4,9 @@ import { PathExt } from '@jupyterlab/coreutils';
 
 import { ISignal, Signal } from '@lumino/signaling';
 
+export const DRIVE_NAME = 'FileSystem';
+const DRIVE_PREFIX = `${DRIVE_NAME}:`;
+
 function arrayBufferToBase64(buffer: ArrayBuffer): string {
   let binary = '';
   const bytes = new Uint8Array(buffer);
@@ -41,7 +44,7 @@ export class FileSystemDrive implements Contents.IDrive {
   }
 
   get name(): string {
-    return 'FileSystem';
+    return DRIVE_NAME;
   }
 
   get serverSettings(): ServerConnection.ISettings {
@@ -64,6 +67,8 @@ export class FileSystemDrive implements Contents.IDrive {
     path: string,
     options?: Contents.IFetchOptions
   ): Promise<Contents.IModel> {
+    path = this.cleanPath(path);
+
     const root = this._rootHandle;
 
     if (!root) {
@@ -140,16 +145,20 @@ export class FileSystemDrive implements Contents.IDrive {
   async newUntitled(
     options?: Contents.ICreateOptions
   ): Promise<Contents.IModel> {
+    let parentPath = '';
+    if (options && options.path) {
+      parentPath = this.cleanPath(options.path);
+    }
+
     const type = options?.type || 'directory';
     const path = PathExt.join(
-      options?.path || '',
+      parentPath,
       type === 'directory' ? 'Untitled Folder' : 'untitled'
     );
     const ext = options?.ext || 'txt';
 
     const parentHandle = await this.getParentHandle(path);
 
-    const parentPath = PathExt.dirname(path);
     let localPath = PathExt.basename(path);
     const name = localPath;
 
@@ -186,6 +195,8 @@ export class FileSystemDrive implements Contents.IDrive {
   }
 
   async delete(path: string): Promise<void> {
+    path = this.cleanPath(path);
+
     const parentHandle = await this.getParentHandle(path);
 
     await parentHandle.removeEntry(PathExt.basename(path), { recursive: true });
@@ -199,6 +210,9 @@ export class FileSystemDrive implements Contents.IDrive {
 
   async rename(oldPath: string, newPath: string): Promise<Contents.IModel> {
     // Best effort, we are lacking proper APIs for renaming
+    oldPath = this.cleanPath(oldPath);
+    newPath = this.cleanPath(newPath);
+
     await this.doCopy(oldPath, newPath);
 
     await this.delete(oldPath);
@@ -210,6 +224,8 @@ export class FileSystemDrive implements Contents.IDrive {
     path: string,
     options?: Partial<Contents.IModel>
   ): Promise<Contents.IModel> {
+    path = this.cleanPath(path);
+
     const parentHandle = await this.getParentHandle(path);
 
     if (options?.type === 'directory') {
@@ -240,6 +256,8 @@ export class FileSystemDrive implements Contents.IDrive {
 
   async copy(path: string, toLocalDir: string): Promise<Contents.IModel> {
     // Best effort, we are lacking proper APIs for copying
+    path = this.cleanPath(path);
+
     const toCopy = await this.get(path);
     const parentPath = PathExt.dirname(path);
 
@@ -373,7 +391,7 @@ export class FileSystemDrive implements Contents.IDrive {
   }
 
   private async doCopy(oldPath: string, newPath: string): Promise<void> {
-    // Best effort, we are lacking proper APIs for copying
+   // Best effort, we are lacking proper APIs for copying
     const oldParentHandle = await this.getParentHandle(oldPath);
 
     const oldLocalPath = PathExt.basename(oldPath);
@@ -412,6 +430,13 @@ export class FileSystemDrive implements Contents.IDrive {
       writable.write(data);
       await writable.close();
     }
+  }
+
+  private cleanPath(path: string): string {
+    if (path.includes(DRIVE_PREFIX)) {
+      return path.replace(DRIVE_PREFIX, '');
+    }
+    return path;
   }
 
   private _isDisposed = false;
