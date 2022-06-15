@@ -391,7 +391,7 @@ export class FileSystemDrive implements Contents.IDrive {
   }
 
   private async doCopy(oldPath: string, newPath: string): Promise<void> {
-   // Best effort, we are lacking proper APIs for copying
+    // Best effort, we are lacking proper APIs for copying
     const oldParentHandle = await this.getParentHandle(oldPath);
 
     const oldLocalPath = PathExt.basename(oldPath);
