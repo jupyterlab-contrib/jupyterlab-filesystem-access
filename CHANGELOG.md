@@ -2,6 +2,27 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.5.1
+
+([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/compare/v0.5.0...5f9ffde9a55c686ac1c4df3ec70ad4edc3ba7c4f))
+
+### Bugs fixed
+
+- Fix README reading [#38](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/38) ([@martinRenou](https://github.com/martinRenou))
+- Remove settings registry initilization [#36](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/36) ([@martinRenou](https://github.com/martinRenou))
+
+### Maintenance and upkeep improvements
+
+- Run CI on Windows + Use micromamba [#37](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/37) ([@martinRenou](https://github.com/martinRenou))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/graphs/contributors?from=2022-06-15&to=2022-06-30&type=c))
+
+[@martinRenou](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3AmartinRenou+updated%3A2022-06-15..2022-06-30&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.5.0
 
 ([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/compare/v0.4.0...bc5c2068f6b6a12511a1f46f53178b5ba1e9b158))
@@ -15,8 +36,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/graphs/contributors?from=2022-04-15&to=2022-06-15&type=c))
 
 [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Afcollonval+updated%3A2022-04-15..2022-06-15&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Ajtpio+updated%3A2022-04-15..2022-06-15&type=Issues) | [@martinRenou](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3AmartinRenou+updated%3A2022-04-15..2022-06-15&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.4.0
 
