@@ -3,8 +3,6 @@ import {
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
 
-import { ISettingRegistry } from '@jupyterlab/settingregistry';
-
 import { ToolbarButton } from '@jupyterlab/apputils';
 
 import { IFileBrowserFactory } from '@jupyterlab/filebrowser';
@@ -21,13 +19,11 @@ import { FileSystemDrive } from './drive';
 const plugin: JupyterFrontEndPlugin<void> = {
   id: 'jupyterlab-filesystem-access:plugin',
   requires: [IFileBrowserFactory, ITranslator],
-  optional: [ISettingRegistry],
   autoStart: true,
   activate: (
     app: JupyterFrontEnd,
     browser: IFileBrowserFactory,
-    translator: ITranslator,
-    settingRegistry: ISettingRegistry | null
+    translator: ITranslator
   ) => {
     if (!window.showDirectoryPicker) {
       // bail if the browser does not support the File System API
@@ -35,10 +31,6 @@ const plugin: JupyterFrontEndPlugin<void> = {
         'The File System Access API is not supported in this browser.'
       );
       return;
-    }
-
-    if (settingRegistry) {
-      settingRegistry.load(plugin.id);
     }
 
     const { serviceManager } = app;
