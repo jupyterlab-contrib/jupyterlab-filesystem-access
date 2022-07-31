@@ -217,7 +217,16 @@ export class FileSystemDrive implements Contents.IDrive {
 
     await this.delete(oldPath);
 
-    return this.get(newPath);
+    const data = this.get(newPath);
+    data.then(model => {
+      this._fileChanged.emit({
+        type: 'rename',
+        oldValue: { path: oldPath },
+        newValue: model
+      });
+    });
+
+    return data;
   }
 
   async save(
