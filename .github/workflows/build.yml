@@ -26,8 +26,6 @@ jobs:
 
     - name: Build the extension
       run: |
-        jlpm
-        jlpm lint:check
         python -m pip install .
 
         jupyter labextension list 2>&1 | grep -ie "jupyterlab-filesystem-access.*OK"
