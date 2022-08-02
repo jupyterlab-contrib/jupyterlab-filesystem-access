@@ -1,4 +1,4 @@
-## jupyterlab-filesystem-access
+# jupyterlab-filesystem-access
 
 [![ci-badge]][ci] [![lite-badge]][lite] [![docs-badge]][docs]
 
