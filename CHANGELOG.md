@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.5.2
+
+([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/compare/v0.5.1...aed82cae404ab142796351b2b2048f4d7dfe162d))
+
+### Bugs fixed
+
+- Emit fileChanged after rename [#41](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/41) ([@hbcarlos](https://github.com/hbcarlos))
+
+### Other merged PRs
+
+- Move the lint check to a separate workflow [#42](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/42) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/graphs/contributors?from=2022-06-30&to=2022-08-02&type=c))
+
+[@hbcarlos](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Ahbcarlos+updated%3A2022-06-30..2022-08-02&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Ajtpio+updated%3A2022-06-30..2022-08-02&type=Issues) | [@martinRenou](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3AmartinRenou+updated%3A2022-06-30..2022-08-02&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.5.1
 
 ([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/compare/v0.5.0...5f9ffde9a55c686ac1c4df3ec70ad4edc3ba7c4f))
@@ -20,8 +40,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/graphs/contributors?from=2022-06-15&to=2022-06-30&type=c))
 
 [@martinRenou](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3AmartinRenou+updated%3A2022-06-15..2022-06-30&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.5.0
 
