@@ -18,6 +18,10 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
   return window.btoa(binary);
 }
 
+function base64DecodeAsBlob(text: string, type = 'text/plain;charset=UTF-8') {
+  return fetch(`data:${type};base64,` + text).then(response => response.blob());
+}
+
 async function toArray<T>(
   asyncIterator: AsyncIterableIterator<T>
 ): Promise<T[]> {
@@ -255,6 +259,9 @@ export class FileSystemDrive implements Contents.IDrive {
     if (format === 'json') {
       const data = JSON.stringify(content, null, 2);
       await writable.write(data);
+    } else if (format === 'base64') {
+      const contentBlob = await base64DecodeAsBlob(content);
+      await writable.write(contentBlob);
     } else {
       await writable.write(content);
     }
