@@ -18,7 +18,7 @@ ignore = ["jupyterlab_filesystem_access/labextension/**", "yarn.lock", ".*", "pa
 
 [tool.jupyter-releaser.hooks]
 before-build-npm = [
-    "python -m pip install jupyterlab~=3.0,<4",
+    "python -m pip install jupyterlab~=3.1",
     "jlpm",
     "jlpm run build:prod",
 ]
