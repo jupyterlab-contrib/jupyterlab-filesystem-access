@@ -18,7 +18,7 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
   return window.btoa(binary);
 }
 
-function base64DecodeAsBlob(text: string, type = "text/plain;charset=UTF-8") {
+function base64DecodeAsBlob(text: string, type = 'text/plain;charset=UTF-8') {
   return fetch(`data:${type};base64,` + text).then(response => response.blob());
 }
 
