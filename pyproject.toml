@@ -15,3 +15,11 @@ npm = ["jlpm"]
 
 [tool.check-manifest]
 ignore = ["jupyterlab_filesystem_access/labextension/**", "yarn.lock", ".*", "package-lock.json"]
+
+[tool.jupyter-releaser.hooks]
+before-build-npm = [
+    "python -m pip install jupyterlab~=3.0,<4",
+    "jlpm",
+    "jlpm run build:prod",
+]
+before-build-python = ["jlpm clean:all"]

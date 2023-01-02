@@ -90,16 +90,5 @@
   "jupyterlab": {
     "extension": true,
     "outputDir": "jupyterlab_filesystem_access/labextension"
-  },
-  "jupyter-releaser": {
-    "hooks": {
-      "before-build-npm": [
-        "python -m pip install jupyterlab~=3.3",
-        "jlpm"
-      ],
-      "before-build-python": [
-        "jlpm clean:all"
-      ]
-    }
   }
 }
