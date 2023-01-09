@@ -2,6 +2,26 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.5.3
+
+([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/compare/v0.5.2...3a5b154c371a3490d8c157ed224a04bc892b8d67))
+
+### Maintenance and upkeep improvements
+
+- Update to the Jupyter Releaser v2 [#46](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/46) ([@jtpio](https://github.com/jtpio))
+
+### Other merged PRs
+
+- Correctly save content even if format is base64 [#45](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/45) ([@tanaga9](https://github.com/tanaga9))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/graphs/contributors?from=2022-08-02&to=2023-01-02&type=c))
+
+[@jtpio](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Ajtpio+updated%3A2022-08-02..2023-01-02&type=Issues) | [@tanaga9](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Atanaga9+updated%3A2022-08-02..2023-01-02&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.5.2
 
 ([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/compare/v0.5.1...aed82cae404ab142796351b2b2048f4d7dfe162d))
@@ -19,8 +39,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/graphs/contributors?from=2022-06-30&to=2022-08-02&type=c))
 
 [@hbcarlos](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Ahbcarlos+updated%3A2022-06-30..2022-08-02&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Ajtpio+updated%3A2022-06-30..2022-08-02&type=Issues) | [@martinRenou](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3AmartinRenou+updated%3A2022-06-30..2022-08-02&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.5.1
 
