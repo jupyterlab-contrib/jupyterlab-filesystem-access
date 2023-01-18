@@ -2,9 +2,7 @@ name: jupyterlab-filesystem-access
 channels:
   - conda-forge
 dependencies:
-  - jupyterlab
-  - yarn
-  - jupyter-packaging
-  - build
-  - check-manifest
+  - python=3.10
+  - jupyterlab >=3,<4.0.0a0
+  - nodejs >=18,<19
   - pip
