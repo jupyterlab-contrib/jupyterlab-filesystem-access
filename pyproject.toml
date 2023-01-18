@@ -3,7 +3,7 @@ requires = ["hatchling>=1.4.0", "jupyterlab>=3.4.7,<4.0.0", "hatch-nodejs-versio
 build-backend = "hatchling.build"
 
 [project]
-name = "jupyterlab_filesystem_access"
+name = "jupyterlab-filesystem-access"
 readme = "README.md"
 license = { file = "LICENSE" }
 requires-python = ">=3.7"
