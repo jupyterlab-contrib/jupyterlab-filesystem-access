@@ -10,3 +10,5 @@ dependencies:
   - jupyter
   - jupyterlite-pyodide-kernel
   - jupyterlite-sphinx
+  - pip:
+    - ..
