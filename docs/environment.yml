@@ -4,11 +4,9 @@ channels:
   - conda-forge
 
 dependencies:
-  - yarn
+  - yarn=1
   - jupyterlab
-  - jupyter-packaging
   - pydata-sphinx-theme
-
-  - pip:
-    - ..
-    - jupyterlite-sphinx
+  - jupyter
+  - jupyterlite-pyodide-kernel
+  - jupyterlite-sphinx
