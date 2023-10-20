@@ -10,7 +10,11 @@ import {
   ToolbarButton
 } from '@jupyterlab/apputils';
 
-import { IFileBrowserFactory, FileBrowser } from '@jupyterlab/filebrowser';
+import {
+  IFileBrowserFactory,
+  FileBrowser,
+  Uploader
+} from '@jupyterlab/filebrowser';
 
 import { ISettingRegistry } from '@jupyterlab/settingregistry';
 
@@ -21,9 +25,9 @@ import { listIcon, folderIcon } from '@jupyterlab/ui-components';
 import { FileSystemDrive } from './drive';
 
 /**
- * The file browser factory
+ * The file system access factory
  */
-const FILE_BROWSER_FACTORY = 'FileSystemAccess';
+const FILE_SYSTEM_ACCESS_FACTORY = 'FileSystemAccess';
 
 /**
  * Initialization data for the jupyterlab-filesystem-access extension.
@@ -75,7 +79,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         createToolbarFactory(
           toolbarRegistry,
           settingRegistry,
-          FILE_BROWSER_FACTORY,
+          FILE_SYSTEM_ACCESS_FACTORY,
           plugin.id,
           translator ?? nullTranslator
         ),
@@ -83,7 +87,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       );
 
       toolbarRegistry.addFactory(
-        FILE_BROWSER_FACTORY,
+        FILE_SYSTEM_ACCESS_FACTORY,
         'open-folder',
         (browser: FileBrowser) => {
           const openDirectoryButton = new ToolbarButton({
@@ -102,6 +106,16 @@ const plugin: JupyterFrontEndPlugin<void> = {
           });
           return openDirectoryButton;
         }
+      );
+
+      toolbarRegistry.addFactory(
+        FILE_SYSTEM_ACCESS_FACTORY,
+        'uploader',
+        (browser: FileBrowser) =>
+          new Uploader({
+            model: browser.model,
+            translator
+          })
       );
     }
 

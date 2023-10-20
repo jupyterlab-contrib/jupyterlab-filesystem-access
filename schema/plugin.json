@@ -2,7 +2,10 @@
   "title": "File System Access Widget",
   "description": "File Browser widget settings.",
   "jupyter.lab.toolbars": {
-    "FileSystemAccess": [{ "name": "open-folder", "rank": 0 }]
+    "FileSystemAccess": [
+      { "name": "open-folder", "rank": 0 },
+      { "name": "uploader", "rank": 10 }
+    ]
   },
   "jupyter.lab.transform": true,
   "properties": {
