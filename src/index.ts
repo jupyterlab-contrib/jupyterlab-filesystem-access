@@ -3,15 +3,27 @@ import {
   JupyterFrontEndPlugin
 } from '@jupyterlab/application';
 
-import { ToolbarButton } from '@jupyterlab/apputils';
+import {
+  createToolbarFactory,
+  setToolbar,
+  IToolbarWidgetRegistry,
+  ToolbarButton
+} from '@jupyterlab/apputils';
 
-import { IFileBrowserFactory } from '@jupyterlab/filebrowser';
+import { IFileBrowserFactory, FileBrowser } from '@jupyterlab/filebrowser';
 
-import { ITranslator } from '@jupyterlab/translation';
+import { ISettingRegistry } from '@jupyterlab/settingregistry';
+
+import { ITranslator, nullTranslator } from '@jupyterlab/translation';
 
 import { listIcon, folderIcon } from '@jupyterlab/ui-components';
 
 import { FileSystemDrive } from './drive';
+
+/**
+ * The file browser factory
+ */
+const FILE_BROWSER_FACTORY = 'FileSystemAccess';
 
 /**
  * Initialization data for the jupyterlab-filesystem-access extension.
@@ -19,13 +31,17 @@ import { FileSystemDrive } from './drive';
 const plugin: JupyterFrontEndPlugin<void> = {
   id: 'jupyterlab-filesystem-access:plugin',
   requires: [IFileBrowserFactory, ITranslator],
+  optional: [ISettingRegistry, IToolbarWidgetRegistry],
   autoStart: true,
   activate: (
     app: JupyterFrontEnd,
     browser: IFileBrowserFactory,
-    translator: ITranslator
+    translator: ITranslator,
+    settingRegistry: ISettingRegistry | null,
+    toolbarRegistry: IToolbarWidgetRegistry | null
   ) => {
-    if (!window.showDirectoryPicker) {
+    const showDirectoryPicker = window.showDirectoryPicker;
+    if (!showDirectoryPicker) {
       // bail if the browser does not support the File System API
       console.warn(
         'The File System Access API is not supported in this browser.'
@@ -49,24 +65,47 @@ const plugin: JupyterFrontEndPlugin<void> = {
     widget.title.caption = trans.__('Local File System');
     widget.title.icon = listIcon;
 
-    const openDirectoryButton = new ToolbarButton({
-      icon: folderIcon,
-      onClick: async () => {
-        const directoryHandle = await window.showDirectoryPicker();
+    const toolbar = widget.toolbar;
+    toolbar.id = 'jp-filesystem-toolbar';
 
-        if (directoryHandle) {
-          drive.rootHandle = directoryHandle;
+    if (toolbarRegistry && settingRegistry) {
+      // Set toolbar
+      setToolbar(
+        toolbar,
+        createToolbarFactory(
+          toolbarRegistry,
+          settingRegistry,
+          FILE_BROWSER_FACTORY,
+          plugin.id,
+          translator ?? nullTranslator
+        ),
+        toolbar
+      );
 
-          // Go to root directory
-          widget.model.cd('/');
+      toolbarRegistry.addFactory(
+        FILE_BROWSER_FACTORY,
+        'open-folder',
+        (browser: FileBrowser) => {
+          const openDirectoryButton = new ToolbarButton({
+            icon: folderIcon,
+            onClick: async () => {
+              const directoryHandle = await showDirectoryPicker();
+
+              if (directoryHandle) {
+                drive.rootHandle = directoryHandle;
+
+                // Go to root directory
+                widget.model.cd('/');
+              }
+            },
+            tooltip: trans.__('Open a new folder')
+          });
+          return openDirectoryButton;
         }
-      },
-      tooltip: trans.__('Open a new folder')
-    });
+      );
+    }
 
-    widget.toolbar.insertItem(0, 'open-directory', openDirectoryButton);
-
-    app.shell.add(widget, 'left');
+    app.shell.add(widget, 'left', { type: 'FileSystemAccess' });
   }
 };
 

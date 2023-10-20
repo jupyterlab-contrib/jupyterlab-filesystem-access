@@ -99,7 +99,8 @@
     },
     "jupyterlab": {
         "extension": true,
-        "outputDir": "jupyterlab-filesystem-access/labextension"
+        "outputDir": "jupyterlab-filesystem-access/labextension",
+        "schemaDir": "schema"
     },
     "eslintConfig": {
         "extends": [
