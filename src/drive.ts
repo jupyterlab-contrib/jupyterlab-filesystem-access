@@ -142,7 +142,7 @@ export class FileSystemDrive implements Contents.IDrive {
     }
   }
 
-  getDownloadUrl(path: string): Promise<string> {
+  async getDownloadUrl(path: string): Promise<string> {
     throw new Error('Method not implemented.');
   }
 
