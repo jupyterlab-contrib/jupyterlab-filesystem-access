@@ -20,7 +20,12 @@ import { ISettingRegistry } from '@jupyterlab/settingregistry';
 
 import { ITranslator, nullTranslator } from '@jupyterlab/translation';
 
-import { listIcon, folderIcon } from '@jupyterlab/ui-components';
+import {
+  listIcon,
+  folderIcon,
+  IScore,
+  FilenameSearcher
+} from '@jupyterlab/ui-components';
 
 import { FileSystemDrive } from './drive';
 
@@ -28,6 +33,11 @@ import { FileSystemDrive } from './drive';
  * The file system access factory
  */
 const FILE_SYSTEM_ACCESS_FACTORY = 'FileSystemAccess';
+
+/**
+ * The class name added to the filebrowser filterbox node.
+ */
+const FILTERBOX_CLASS = 'jp-FileBrowser-filterBox';
 
 /**
  * Initialization data for the jupyterlab-filesystem-access extension.
@@ -119,6 +129,28 @@ const plugin: JupyterFrontEndPlugin<void> = {
             model: widget.model,
             translator
           })
+      );
+
+      toolbarRegistry.addFactory(
+        FILE_SYSTEM_ACCESS_FACTORY,
+        'filename-searcher',
+        (browser: FileBrowser) => {
+          const searcher = FilenameSearcher({
+            updateFilter: (
+              filterFn: (item: string) => Partial<IScore> | null,
+              query?: string
+            ) => {
+              widget.model.setFilter(value => {
+                return filterFn(value.name.toLowerCase());
+              });
+            },
+            useFuzzyFilter: true,
+            placeholder: trans.__('Filter files by name'),
+            forceRefresh: true
+          });
+          searcher.addClass(FILTERBOX_CLASS);
+          return searcher;
+        }
       );
     }
 

@@ -4,7 +4,8 @@
   "jupyter.lab.toolbars": {
     "FileSystemAccess": [
       { "name": "open-folder", "rank": 0 },
-      { "name": "uploader", "rank": 10 }
+      { "name": "uploader", "rank": 10 },
+      { "name": "filename-searcher", "rank": 20 }
     ]
   },
   "jupyter.lab.transform": true,
