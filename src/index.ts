@@ -69,6 +69,9 @@ const plugin: JupyterFrontEndPlugin<void> = {
     widget.title.caption = trans.__('Local File System');
     widget.title.icon = listIcon;
 
+    // set some defaults for now
+    widget.showFileCheckboxes = false;
+
     const toolbar = widget.toolbar;
     toolbar.id = 'jp-filesystem-toolbar';
 
@@ -113,7 +116,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         'uploader',
         (browser: FileBrowser) =>
           new Uploader({
-            model: browser.model,
+            model: widget.model,
             translator
           })
       );
