@@ -146,7 +146,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
             },
             useFuzzyFilter: true,
             placeholder: trans.__('Filter files by name'),
-            forceRefresh: true
+            forceRefresh: false
           });
           searcher.addClass(FILTERBOX_CLASS);
           return searcher;
