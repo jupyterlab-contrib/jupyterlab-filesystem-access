@@ -11,5 +11,6 @@ dependencies:
   - jupyterlite-sphinx
   - pip:
     - jupyterlite-pyodide-kernel==0.2.0a2
+    - jupyterlite-xeus-python==1.0.0a3
     - jupyterlite-core==0.2.0rc1
     - ..
