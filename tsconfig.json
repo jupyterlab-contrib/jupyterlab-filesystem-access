@@ -17,8 +17,7 @@
     "rootDir": "src",
     "strict": true,
     "strictNullChecks": true,
-    "target": "ESNext",
-    "types": ["wicg-file-system-access"]
+    "target": "ES2018"
   },
   "include": ["src/*"]
 }
