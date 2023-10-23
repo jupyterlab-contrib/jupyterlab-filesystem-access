@@ -1,0 +1,14 @@
+# Changes here will be overwritten by Copier; NEVER EDIT MANUALLY
+_commit: v4.2.2
+_src_path: https://github.com/jupyterlab/extension-template
+author_email: ''
+author_name: JupyterLab Contrib Team
+has_binder: false
+has_settings: false
+kind: frontend
+labextension_name: jupyterlab-filesystem-access
+project_short_description: Mount local files using the Filesystem API
+python_name: jupyterlab_filesystem_access
+repository: https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access.git
+test: false
+
