@@ -4,7 +4,8 @@ import { PathExt } from '@jupyterlab/coreutils';
 
 import { ISignal, Signal } from '@lumino/signaling';
 
-export const DRIVE_NAME = 'FileSystem';
+export const DRIVE_NAME = 'FileSystemAccess';
+
 const DRIVE_PREFIX = `${DRIVE_NAME}:`;
 
 function arrayBufferToBase64(buffer: ArrayBuffer): string {

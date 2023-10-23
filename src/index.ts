@@ -27,12 +27,7 @@ import {
   FilenameSearcher
 } from '@jupyterlab/ui-components';
 
-import { FileSystemDrive } from './drive';
-
-/**
- * The file system access factory
- */
-const FILE_SYSTEM_ACCESS_FACTORY = 'FileSystemAccess';
+import { DRIVE_NAME, FileSystemDrive } from './drive';
 
 /**
  * The class name added to the filebrowser filterbox node.
@@ -92,7 +87,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
         createToolbarFactory(
           toolbarRegistry,
           settingRegistry,
-          FILE_SYSTEM_ACCESS_FACTORY,
+          DRIVE_NAME,
           plugin.id,
           translator ?? nullTranslator
         ),
@@ -100,7 +95,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       );
 
       toolbarRegistry.addFactory(
-        FILE_SYSTEM_ACCESS_FACTORY,
+        DRIVE_NAME,
         'open-folder',
         (browser: FileBrowser) => {
           const openDirectoryButton = new ToolbarButton({
@@ -122,7 +117,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       );
 
       toolbarRegistry.addFactory(
-        FILE_SYSTEM_ACCESS_FACTORY,
+        DRIVE_NAME,
         'uploader',
         (browser: FileBrowser) =>
           new Uploader({
@@ -132,7 +127,7 @@ const plugin: JupyterFrontEndPlugin<void> = {
       );
 
       toolbarRegistry.addFactory(
-        FILE_SYSTEM_ACCESS_FACTORY,
+        DRIVE_NAME,
         'filename-searcher',
         (browser: FileBrowser) => {
           const searcher = FilenameSearcher({
