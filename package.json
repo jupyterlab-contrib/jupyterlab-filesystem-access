@@ -37,7 +37,7 @@
         "build:prod": "jlpm clean && jlpm build:lib:prod && jlpm build:labextension",
         "clean": "jlpm clean:lib",
         "clean:all": "jlpm clean:lib && jlpm clean:labextension && jlpm clean:lintcache",
-        "clean:labextension": "rimraf jupyterlab-filesystem-access/labextension jupyterlab-filesystem-access/_version.py",
+        "clean:labextension": "rimraf jupyterlab_filesystem_access/labextension jupyterlab_filesystem_access/_version.py",
         "clean:lib": "rimraf lib tsconfig.tsbuildinfo",
         "clean:lintcache": "rimraf .eslintcache .stylelintcache",
         "eslint": "jlpm eslint:check --fix",
@@ -99,7 +99,7 @@
     },
     "jupyterlab": {
         "extension": true,
-        "outputDir": "jupyterlab-filesystem-access/labextension",
+        "outputDir": "jupyterlab_filesystem_access/labextension",
         "schemaDir": "schema"
     },
     "eslintConfig": {

@@ -32,24 +32,24 @@ source = "nodejs"
 fields = ["description", "authors", "urls"]
 
 [tool.hatch.build.targets.sdist]
-artifacts = ["jupyterlab-filesystem-access/labextension"]
+artifacts = ["jupyterlab_filesystem_access/labextension"]
 exclude = [".github", "binder"]
 
 [tool.hatch.build.targets.wheel.shared-data]
-"jupyterlab-filesystem-access/labextension" = "share/jupyter/labextensions/jupyterlab-filesystem-access"
-"install.json" = "share/jupyter/labextensions/jupyterlab-filesystem-access/install.json"
+"jupyterlab_filesystem_access/labextension" = "share/jupyter/labextensions/jupyterlab_filesystem_access"
+"install.json" = "share/jupyter/labextensions/jupyterlab_filesystem_access/install.json"
 
 [tool.hatch.build.hooks.version]
-path = "jupyterlab-filesystem-access/_version.py"
+path = "jupyterlab_filesystem_access/_version.py"
 
 [tool.hatch.build.hooks.jupyter-builder]
 dependencies = ["hatch-jupyter-builder>=0.5"]
 build-function = "hatch_jupyter_builder.npm_builder"
 ensured-targets = [
-    "jupyterlab-filesystem-access/labextension/static/style.js",
-    "jupyterlab-filesystem-access/labextension/package.json",
+    "jupyterlab_filesystem_access/labextension/static/style.js",
+    "jupyterlab_filesystem_access/labextension/package.json",
 ]
-skip-if-exists = ["jupyterlab-filesystem-access/labextension/static/style.js"]
+skip-if-exists = ["jupyterlab_filesystem_access/labextension/static/style.js"]
 
 [tool.hatch.build.hooks.jupyter-builder.build-kwargs]
 build_cmd = "build:prod"
@@ -59,7 +59,7 @@ npm = ["jlpm"]
 build_cmd = "install:extension"
 npm = ["jlpm"]
 source_dir = "src"
-build_dir = "jupyterlab-filesystem-access/labextension"
+build_dir = "jupyterlab_filesystem_access/labextension"
 
 [tool.jupyter-releaser.options]
 version_cmd = "hatch version"
