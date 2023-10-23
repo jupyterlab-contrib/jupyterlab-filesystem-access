@@ -160,7 +160,7 @@ export class FileSystemDrive implements Contents.IDrive {
       parentPath,
       type === 'directory' ? 'Untitled Folder' : 'untitled'
     );
-    const ext = options?.ext || 'txt';
+    const ext = type === 'notebook' ? 'ipynb' : options?.ext || 'txt';
 
     const parentHandle = await this.getParentHandle(path);
 
