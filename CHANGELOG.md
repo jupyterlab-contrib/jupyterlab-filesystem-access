@@ -2,6 +2,33 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.6.0
+
+([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/compare/v0.5.3...32e0371f66bb5790dc3dd9c4b85f3e94c1673d0e))
+
+### Enhancements made
+
+- Update to JupyterLab 4 [#55](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/55) ([@jtpio](https://github.com/jtpio))
+
+### Bugs fixed
+
+- Fix creating a new notebook [#60](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/60) ([@jtpio](https://github.com/jtpio))
+
+### Maintenance and upkeep improvements
+
+- Add ReadTheDocs preview workflow [#59](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/59) ([@jtpio](https://github.com/jtpio))
+- Update the ReadTheDocs setup [#53](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/53) ([@jtpio](https://github.com/jtpio))
+- Migrate to `hatch` [#52](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/52) ([@jtpio](https://github.com/jtpio))
+- Create `enforce-label.yml` [#51](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/51) ([@jtpio](https://github.com/jtpio))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/graphs/contributors?from=2023-01-02&to=2023-10-26&type=c))
+
+[@fcollonval](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Afcollonval+updated%3A2023-01-02..2023-10-26&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Ajtpio+updated%3A2023-01-02..2023-10-26&type=Issues) | [@martinRenou](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3AmartinRenou+updated%3A2023-01-02..2023-10-26&type=Issues) | [@psychemedia](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Apsychemedia+updated%3A2023-01-02..2023-10-26&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.5.3
 
 ([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/compare/v0.5.2...3a5b154c371a3490d8c157ed224a04bc892b8d67))
@@ -19,8 +46,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/graphs/contributors?from=2022-08-02&to=2023-01-02&type=c))
 
 [@jtpio](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Ajtpio+updated%3A2022-08-02..2023-01-02&type=Issues) | [@tanaga9](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Atanaga9+updated%3A2022-08-02..2023-01-02&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.5.2
 
