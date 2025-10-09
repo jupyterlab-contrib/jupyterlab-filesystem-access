@@ -375,7 +375,7 @@ export class FileSystemDrive implements Contents.IDrive {
     let format: Contents.FileFormat;
     let fileContent: any = null;
 
-    // We assume here image, audio and video mimetypes are all and only binary files we'll encounter
+    // We assume here image, audio, video, zip and pdf mimetypes are all and only binary files we'll encounter
     if (
       file.type &&
       file.type.split('/') &&
@@ -383,7 +383,17 @@ export class FileSystemDrive implements Contents.IDrive {
     ) {
       format = 'base64';
     } else {
-      format = 'text';
+      if (
+        [
+          'application/zip',
+          'application/pdf',
+          'application/octet-stream'
+        ].includes(file.type)
+      ) {
+        format = 'base64';
+      } else {
+        format = 'text';
+      }
     }
 
     if (content) {
