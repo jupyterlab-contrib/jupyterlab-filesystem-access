@@ -2,6 +2,30 @@
 
 <!-- <START NEW CHANGELOG ENTRY> -->
 
+## 0.7.0
+
+([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/compare/v0.6.0...42509414fc2ec047f5e58847523e4d4f766478bd))
+
+### Enhancements made
+
+- Added a button to open the Origin Private File System [#66](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/66) ([@koron](https://github.com/koron))
+
+### Bugs fixed
+
+- Add support for pdf and zip binary types [#67](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/67) ([@JCapul](https://github.com/JCapul))
+
+### Maintenance and upkeep improvements
+
+- Update CI [#68](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/pull/68) ([@martinRenou](https://github.com/martinRenou))
+
+### Contributors to this release
+
+([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/graphs/contributors?from=2023-10-26&to=2025-10-10&type=c))
+
+[@github-actions](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Agithub-actions+updated%3A2023-10-26..2025-10-10&type=Issues) | [@JCapul](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3AJCapul+updated%3A2023-10-26..2025-10-10&type=Issues) | [@koron](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Akoron+updated%3A2023-10-26..2025-10-10&type=Issues) | [@martinRenou](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3AmartinRenou+updated%3A2023-10-26..2025-10-10&type=Issues)
+
+<!-- <END NEW CHANGELOG ENTRY> -->
+
 ## 0.6.0
 
 ([Full Changelog](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/compare/v0.5.3...32e0371f66bb5790dc3dd9c4b85f3e94c1673d0e))
@@ -26,8 +50,6 @@
 ([GitHub contributors page for this release](https://github.com/jupyterlab-contrib/jupyterlab-filesystem-access/graphs/contributors?from=2023-01-02&to=2023-10-26&type=c))
 
 [@fcollonval](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Afcollonval+updated%3A2023-01-02..2023-10-26&type=Issues) | [@jtpio](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Ajtpio+updated%3A2023-01-02..2023-10-26&type=Issues) | [@martinRenou](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3AmartinRenou+updated%3A2023-01-02..2023-10-26&type=Issues) | [@psychemedia](https://github.com/search?q=repo%3Ajupyterlab-contrib%2Fjupyterlab-filesystem-access+involves%3Apsychemedia+updated%3A2023-01-02..2023-10-26&type=Issues)
-
-<!-- <END NEW CHANGELOG ENTRY> -->
 
 ## 0.5.3
 
