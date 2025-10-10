@@ -23,6 +23,7 @@ import { ITranslator, nullTranslator } from '@jupyterlab/translation';
 import {
   listIcon,
   folderIcon,
+  trustedIcon,
   IScore,
   FilenameSearcher
 } from '@jupyterlab/ui-components';
@@ -113,6 +114,25 @@ const plugin: JupyterFrontEndPlugin<void> = {
             tooltip: trans.__('Open a new folder')
           });
           return openDirectoryButton;
+        }
+      );
+
+      toolbarRegistry.addFactory(
+        DRIVE_NAME,
+        'open-opfs',
+        (browser: FileBrowser) => {
+          const openOPFSButton = new ToolbarButton({
+            icon: trustedIcon,
+            onClick: async () => {
+              const directoryHandle = await navigator.storage.getDirectory();
+              if (directoryHandle) {
+                drive.rootHandle = directoryHandle;
+                widget.model.cd('/');
+              }
+            },
+            tooltip: trans.__('Open the Origin Private File System')
+          });
+          return openOPFSButton;
         }
       );
 
